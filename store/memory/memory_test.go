@@ -1,4 +1,4 @@
-package store
+package memory
 
 import (
 	"github.com/igavrysh/linksrus/graph/graphtest"
@@ -17,4 +17,3 @@ type InMemoryGraphTestSuite struct {
 func (s *InMemoryGraphTestSuite) SetUpTest(c *gc.C) {
 	s.SetGraph(NewInMemoryGraph())
 }
-

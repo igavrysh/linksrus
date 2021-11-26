@@ -1,4 +1,4 @@
-package store
+package memory
 
 import "github.com/igavrysh/linksrus/graph"
 
