@@ -5,4 +5,12 @@ cockroach sql --insecure -e 'CREATE DATABASE linkgraph;'
 export CDB_DSN='postgresql://root@localhost:26257/linkgraph?sslmode=disable'
 
 
-# running elastic search
+# running elastic search, after downloading it from web and putting in /opt directory
+ES_JAVA_OPTS="-Xms1g -Xmx1g" ./bin/elasticsearch
+
+
+# installing and running golang migrate tool
+curl -L https://github.com/golang-migrate/migrate/releases/download/v4.14.1/migrate.linux-amd64.tar.gz | tar xvz
+sudo mv migrate.linux-amd64 $GOPATH/bin/migrate
+
+migrate create -digits 2 -seq -ext=.sql -dir=./store/cdb/migrations create_links_table
