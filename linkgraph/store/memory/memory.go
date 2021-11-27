@@ -3,7 +3,7 @@ package memory
 import (
 	"fmt"
 	"github.com/google/uuid"
-	"github.com/igavrysh/linksrus/graph"
+	"github.com/igavrysh/linksrus/linkgraph/graph"
 	"sync"
 	"time"
 )

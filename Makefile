@@ -2,7 +2,7 @@
 run-db-migrations: run-cdb-migrations
 
 run-cdb-migrations: migrate-check-deps check-cdb-env
-	migrate -source file://store/cdb/migrations -database '$(subst postgresql,cockroach,${CDB_DSN})' up
+	migrate -source file://linkgraph/store/cdb/migrations -database '$(subst postgresql,cockroach,${CDB_DSN})' up
 
 migrate-check-deps:
 	@if [ -z `which migrate` ]; then \

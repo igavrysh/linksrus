@@ -2,7 +2,7 @@ package cdb
 
 import (
 	"database/sql"
-	"github.com/igavrysh/linksrus/graph/graphtest"
+	"github.com/igavrysh/linksrus/linkgraph/graph/graphtest"
 	gc "gopkg.in/check.v1"
 	"os"
 	"testing"

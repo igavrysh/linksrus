@@ -3,7 +3,7 @@ package cdb
 import (
 	"database/sql"
 	"fmt"
-	"github.com/igavrysh/linksrus/graph"
+	"github.com/igavrysh/linksrus/linkgraph/graph"
 	"time"
 
 	"github.com/google/uuid"

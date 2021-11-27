@@ -3,7 +3,7 @@ package cdb
 import (
 	"database/sql"
 	"fmt"
-	"github.com/igavrysh/linksrus/graph"
+	"github.com/igavrysh/linksrus/linkgraph/graph"
 )
 
 // linkIterator is a graph.LinkIterator implementation for the cdb graph.

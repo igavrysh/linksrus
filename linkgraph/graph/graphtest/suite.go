@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/google/uuid"
-	"github.com/igavrysh/linksrus/graph"
+	"github.com/igavrysh/linksrus/linkgraph/graph"
 	gc "gopkg.in/check.v1"
 	"math/big"
 	"sort"
