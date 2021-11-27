@@ -1,7 +1,13 @@
 
 # running cockroach db
-cockroach start --insecure --advertise-addr 127.0.0.1:26257
+cockroach start-single-node --insecure --advertise-addr 127.0.0.1:26257
 cockroach sql --insecure -e 'CREATE DATABASE linkgraph;'
+
+
+cockroach sql --insecure -e 'SHOW DATABASES;'
+
+
+
 export CDB_DSN='postgresql://root@localhost:26257/linkgraph?sslmode=disable'
 
 
