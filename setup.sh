@@ -8,6 +8,8 @@ cockroach sql --insecure -e 'SHOW DATABASES;'
 
 export CDB_DSN='postgresql://root@localhost:26257/linkgraph?sslmode=disable'
 
+export ES_NODES='http://localhost:9200'
+
 
 # running elastic search, after downloading it from web and putting in /opt directory
 ES_JAVA_OPTS="-Xms1g -Xmx1g" ./bin/elasticsearch
