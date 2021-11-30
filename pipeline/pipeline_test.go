@@ -175,4 +175,3 @@ func stringPayloads(numValues int) []pipeline.Payload {
 	}
 	return out
 }
-

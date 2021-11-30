@@ -304,4 +304,3 @@ func tryEmitError(errCh chan<- error, err error) {
 	default: // channel already contains another error
 	}
 }
-

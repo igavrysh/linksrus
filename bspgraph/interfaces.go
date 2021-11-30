@@ -52,4 +52,3 @@ func (f RelayerFunc) Relay(dst string, msg message.Message) error {
 // ComputeFunc is a function that a graph instance invokes on each vertex when
 // executing a superstep.
 type ComputeFunc func(g *Graph, v *Vertex, msgIt message.Iterator) error
-

@@ -163,4 +163,3 @@ func maybeEmitError(err error, errCh chan<- error) {
 	default: // error channel is full with other errors.
 	}
 }
-

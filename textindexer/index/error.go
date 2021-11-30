@@ -13,4 +13,3 @@ var (
 	// that does not specify a valid link ID.
 	ErrMissingLinkID = errors.New("document does not provide a valid linkID")
 )
-

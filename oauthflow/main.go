@@ -84,4 +84,3 @@ func printUserLoginName(cli *http.Client) error {
 	fmt.Printf("Your GitHub user name is %q\n", parsedRes.Login)
 	return nil
 }
-

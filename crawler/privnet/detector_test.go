@@ -68,4 +68,3 @@ func (s *DetectorTestSuite) TestDetectorWithCustomCIDRs(c *gc.C) {
 	c.Assert(err, gc.IsNil)
 	c.Assert(isPrivate, gc.Equals, true)
 }
-

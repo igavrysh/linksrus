@@ -40,4 +40,3 @@ type Iterator interface {
 
 // QueueFactory is a function that can create new Queue instances.
 type QueueFactory func() Queue
-

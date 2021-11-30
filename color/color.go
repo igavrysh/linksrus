@@ -167,4 +167,3 @@ func assignColorsToGraph(g *bspgraph.Graph, v *bspgraph.Vertex, msgIt message.It
 		return g.BroadcastToNeighbors(v, state.asMessage(myID))
 	}
 }
-

@@ -91,4 +91,3 @@ func (i *edgeIterator) Close() error {
 func (i *edgeIterator) Edge() *graph.Edge {
 	return i.latchedEdge
 }
-

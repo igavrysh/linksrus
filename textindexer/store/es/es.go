@@ -183,7 +183,6 @@ func (i *ElasticSearchIndexer) Search(q index.Query) (index.Iterator, error) {
 		qtype = "best_fields"
 	}
 
-
 	query := map[string]interface{}{
 		"query": map[string]interface{}{
 			"function_score": map[string]interface{}{

@@ -72,4 +72,3 @@ func makeComputeFunc(dampingFactor float64) bspgraph.ComputeFunc {
 		return g.BroadcastToNeighbors(v, IncomingScoreMessage{newScore / numOutLinks})
 	}
 }
-

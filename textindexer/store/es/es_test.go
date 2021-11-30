@@ -37,5 +37,3 @@ func (s *ElasticSearchTestSuite) SetUpTest(c *gc.C) {
 		c.Assert(err, gc.IsNil)
 	}
 }
-
-
