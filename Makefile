@@ -16,7 +16,6 @@ migrate-check-deps:
 		fi \
 	fi
 
-
 define dsn_missing_error
 
 CDB_DSN envvar is undefined. To run the migrations this envvar
@@ -34,3 +33,6 @@ check-cdb-env:
 ifndef CDB_DSN
 	$(error ${dsn_missing_error})
 endif
+
+generate-mocks:
+	@go generate
