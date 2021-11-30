@@ -4,6 +4,8 @@ package proto;
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/empty.proto";
 
+option go_package = ".;textindexerapi";
+
 // Document represents an indexed document.
 message Document {
   bytes link_id = 1;
