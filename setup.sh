@@ -20,3 +20,7 @@ curl -L https://github.com/golang-migrate/migrate/releases/download/v4.14.1/migr
 sudo mv migrate.linux-amd64 $GOPATH/bin/migrate
 
 migrate create -digits 2 -seq -ext=.sql -dir=./linkgraph/store/cdb/migrations create_links_table
+
+
+# to install mockgen (required for running `go generate ./...`
+go install github.com/golang/mock/mockgen@v1.6.0
