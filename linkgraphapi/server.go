@@ -2,7 +2,6 @@ package linkgraphapi
 
 import (
 	"context"
-	"fmt"
 	"github.com/golang/protobuf/ptypes"
 	"github.com/golang/protobuf/ptypes/empty"
 	"github.com/golang/protobuf/ptypes/timestamp"
@@ -35,17 +34,17 @@ func (s *LinkGraphServer) UpsertLink(_ context.Context, req *proto.Link) (*proto
 		}
 	)
 
-	if isValid := req.RetrievedAt.IsValid(); !isValid {
-		return nil, fmt.Errorf("timestamp %v is invalid", req.RetrievedAt)
-	}
-
-	link.RetrievedAt = req.RetrievedAt.AsTime()
-
 	/*
-		if link.RetrievedAt, err = ptypes.Timestamp(req.RetrievedAt); err != nil {
-			return nil, err
+		if isValid := req.RetrievedAt.IsValid(); !isValid {
+			return nil, fmt.Errorf("timestamp %v is invalid", req.RetrievedAt)
 		}
+
+		link.RetrievedAt = req.RetrievedAt.AsTime()
 	*/
+
+	if link.RetrievedAt, err = ptypes.Timestamp(req.RetrievedAt); err != nil {
+		return nil, err
+	}
 
 	if err = s.g.UpsertLink(&link); err != nil {
 		return nil, err
