@@ -35,4 +35,4 @@ ifndef CDB_DSN
 endif
 
 generate-mocks:
-	@go generate
+	@go generate ./...

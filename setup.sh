@@ -24,3 +24,28 @@ migrate create -digits 2 -seq -ext=.sql -dir=./linkgraph/store/cdb/migrations cr
 
 # to install mockgen (required for running `go generate ./...`
 go install github.com/golang/mock/mockgen@v1.6.0
+
+
+# run minikube
+minikube start --kubernetes-version=v1.22.3 \
+--memory=4g \
+--network-plugin=cni
+
+# to access minikube virtual machine from the host machine
+minikube addons enable ingress
+
+# private registry addon (used for tests, basically this is a private Docker registry for pushing the Docker
+# images that are built in this project
+minikube addons enable registry
+
+# to get minikube ip
+minikube ip
+
+# to allow private unsecured local image repositories
+# edit /etc/docker/daemon.json
+# add the following lines
+# {
+#   "insecure-registries" : [
+#     "$MINIKUBE_IP:5000"
+#   ]
+# }
