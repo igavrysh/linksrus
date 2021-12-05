@@ -12,7 +12,7 @@ export ES_NODES='http://localhost:9200'
 
 
 # running elastic search, after downloading it from web and putting in /opt directory
-ES_JAVA_OPTS="-Xms1g -Xmx1g" ./bin/elasticsearch
+ES_JAVA_OPTS="-Xms1g -Xmx1g" /opt/elasticsearch-7.15.2/bin/elasticsearch
 
 
 # installing and running golang migrate tool
