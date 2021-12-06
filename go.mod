@@ -10,6 +10,8 @@ require (
 	github.com/google/uuid v1.3.0
 	github.com/hashicorp/go-multierror v1.1.1
 	github.com/juju/clock v0.0.0-20190205081909-9c5c9712527c // indirect
+	github.com/juju/errors v0.0.0-20210818161939-5560c4c073ff // indirect
+	github.com/juju/loggo v0.0.0-20210728185423-eebad3a902c4 // indirect
 	github.com/lib/pq v1.10.4
 	github.com/microcosm-cc/bluemonday v1.0.16
 	github.com/sirupsen/logrus v1.8.1 // indirect

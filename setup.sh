@@ -26,10 +26,17 @@ migrate create -digits 2 -seq -ext=.sql -dir=./linkgraph/store/cdb/migrations cr
 go install github.com/golang/mock/mockgen@v1.6.0
 
 
-# run minikube
+# run minikube (not working)
 minikube start --kubernetes-version=v1.22.3 \
 --memory=4g \
 --network-plugin=cni
+
+# run minikube (finally worked)
+# minikube start -p issue-12152 --cni=flannel --install-addons=true \
+# --addons=ingress registry --kubernetes-version=stable --memory=4g --cpus=2
+
+# the same as above but without -p issue-12152
+minikube start --cni=flannel --install-addons=true --addons=ingress registry --kubernetes-version=stable --memory=4g --cpus=2 --network-plugin=cni
 
 # to access minikube virtual machine from the host machine
 minikube addons enable ingress
