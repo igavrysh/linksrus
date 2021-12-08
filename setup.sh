@@ -62,3 +62,9 @@ go mod tidy
 
 # to install dep tool
 go get -d github.com/golang/dep/cmd/dep
+
+# to initialize dep
+dep init
+
+# to install dep tool
+sudo apt install go-dep
