@@ -6,7 +6,7 @@ import (
 	"github.com/google/uuid"
 	"github.com/igavrysh/linksrus/linkgraph/graph"
 	"github.com/igavrysh/linksrus/partition"
-	"github.com/igavrysh/linksrus/service/crawler/pagerank/mocks"
+	mocks2 "github.com/igavrysh/linksrus/service/pagerank/mocks"
 	"github.com/juju/clock/testclock"
 	gc "gopkg.in/check.v1"
 	"testing"
@@ -23,8 +23,8 @@ func (s *ConfigTestSuite) TestConfigValidation(c *gc.C) {
 	defer ctrl.Finish()
 
 	origCfg := Config{
-		GraphAPI:          mocks.NewMockGraphAPI(ctrl),
-		IndexAPI:          mocks.NewMockIndexAPI(ctrl),
+		GraphAPI:          mocks2.NewMockGraphAPI(ctrl),
+		IndexAPI:          mocks2.NewMockIndexAPI(ctrl),
 		PartitionDetector: partition.Fixed{},
 		ComputeWorkers:    4,
 		UpdateInterval:    time.Minute,
@@ -62,8 +62,8 @@ func (s *PagerankTestSuite) TestFullRun(c *gc.C) {
 	ctrl := gomock.NewController(c)
 	defer ctrl.Finish()
 
-	mockGraph := mocks.NewMockGraphAPI(ctrl)
-	mockIndex := mocks.NewMockIndexAPI(ctrl)
+	mockGraph := mocks2.NewMockGraphAPI(ctrl)
+	mockIndex := mocks2.NewMockIndexAPI(ctrl)
 	clk := testclock.NewClock(time.Now())
 
 	cfg := Config{
@@ -82,7 +82,7 @@ func (s *PagerankTestSuite) TestFullRun(c *gc.C) {
 
 	uuid1, uuid2 := uuid.New(), uuid.New()
 
-	mockLinkIt := mocks.NewMockLinkIterator(ctrl)
+	mockLinkIt := mocks2.NewMockLinkIterator(ctrl)
 	gomock.InOrder(
 		mockLinkIt.EXPECT().Next().Return(true),
 		mockLinkIt.EXPECT().Link().Return(&graph.Link{ID: uuid1}),
@@ -93,7 +93,7 @@ func (s *PagerankTestSuite) TestFullRun(c *gc.C) {
 	mockLinkIt.EXPECT().Error().Return(nil)
 	mockLinkIt.EXPECT().Close().Return(nil)
 
-	mockEdgeIt := mocks.NewMockEdgeIterator(ctrl)
+	mockEdgeIt := mocks2.NewMockEdgeIterator(ctrl)
 	gomock.InOrder(
 		mockEdgeIt.EXPECT().Next().Return(true),
 		mockEdgeIt.EXPECT().Edge().Return(&graph.Edge{Src: uuid1, Dst: uuid2}),
@@ -136,8 +136,8 @@ func (s *PagerankTestSuite) TestRunWhileInNonZeroPartition(c *gc.C) {
 	clk := testclock.NewClock(time.Now())
 
 	cfg := Config{
-		GraphAPI:          mocks.NewMockGraphAPI(ctrl),
-		IndexAPI:          mocks.NewMockIndexAPI(ctrl),
+		GraphAPI:          mocks2.NewMockGraphAPI(ctrl),
+		IndexAPI:          mocks2.NewMockIndexAPI(ctrl),
 		PartitionDetector: partition.Fixed{Partition: 1, NumPartitions: 2},
 		Clock:             clk,
 		ComputeWorkers:    1,

@@ -17,7 +17,7 @@ import (
 	"time"
 )
 
-//go:generate mockgen -package mocks -destination mocks/mocks.go github.com/igavrysh/linksrus/service/crawler/pagerank GraphAPI,IndexAPI
+//go:generate mockgen -package mocks -destination mocks/mocks.go github.com/igavrysh/linksrus/service/pagerank GraphAPI,IndexAPI
 //go:generate mockgen -package mocks -destination mocks/mock_iterator.go github.com/igavrysh/linksrus/linkgraph/graph LinkIterator,EdgeIterator
 
 // GraphAPI defines as set of API methods for fetching the links and edges from

@@ -13,6 +13,7 @@ require (
 	github.com/golang/mock v1.6.0
 	github.com/golang/protobuf v1.5.2
 	github.com/google/uuid v1.3.0
+	github.com/gorilla/mux v1.8.0 // indirect
 	github.com/hashicorp/go-multierror v1.1.1
 	github.com/jmank88/nuts v0.4.0 // indirect
 	github.com/juju/clock v0.0.0-20190205081909-9c5c9712527c
