@@ -56,3 +56,9 @@ minikube ip
 #     "$MINIKUBE_IP:5000"
 #   ]
 # }
+
+# to get all dependencies
+go mod tidy
+
+# to install dep tool
+go get -d github.com/golang/dep/cmd/dep
