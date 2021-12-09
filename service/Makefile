@@ -1,6 +1,6 @@
 include ../Makefile
 
-.PHONY: dockerize push dockerize-and-push
+.PHONY: dockerize push dockerize-and-push test
 
 SHELL=/bin/bash -o pipefail
 IMAGE = linksrus-monolith
@@ -9,6 +9,9 @@ SHA = $(shell git rev-parse --short HEAD)
 ifeq ($(origin PRIVATE_REGISTRY),undefined)
 PRIVATE_REGISTRY := $(shell minikube ip 2>/dev/null):5000
 endif
+
+test-private-reg-env-var:
+	@echo "test-private-reg-env-var ${PRIVATE_REGISTRY}"
 
 ifneq ($(PRIVATE_REGISTRY),)
 	PREFIX:=${PRIVATE_REGISTRY}/
