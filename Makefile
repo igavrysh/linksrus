@@ -1,5 +1,33 @@
+.PHONY: deps test lint lint-check-deps ci-check run-migrations
+
+deps:
+	@go mod tidy
+
+test:
+	@echo "[go test] running tests and collecting coverage metrics"
+	@go test -v -tags all_tests -race -coverprofile=coverage.txt -covermode=atomic ./...
+
+lint: lint-check-deps
+	@echo "[golangci-lint] linting sources"
+	@golangci-lint run \
+		-E misspell \
+		-E golint \
+		-E gofmt \
+		-E unconvert \
+		--exclude-use-default=false \
+		./...
+
+lint-check-deps:
+	@if [ -z `which golangci-lint` ]; then \
+		echo "[go get] installing golangci-lint";\
+		GO111MODULE=on go get -u github.com/golangci/golangci-lint/cmd/golangci-lint;\
+	fi
+
+ci-check: deps lint run-cdb-migrations test
 
 run-db-migrations: run-cdb-migrations
+
+.PHONY: run-cdb-migrations migrate-check-deps check-cdb-env
 
 run-cdb-migrations: migrate-check-deps check-cdb-env
 	migrate -source file://linkgraph/store/cdb/migrations -database '$(subst postgresql,cockroach,${CDB_DSN})' up
@@ -36,3 +64,4 @@ endif
 
 generate-mocks:
 	@go generate ./...
+
