@@ -23,6 +23,6 @@ RUN GIT_SHA=$(git rev-parse --short HEAD) && \
 
 FROM alpine:3.10
 RUN apk update && apk add ca-certificates && rm -rf /var/cache/apk/*
-COPY --from=builder /app/linksrus-monolith /appb/linksrus-monolith
+COPY --from=builder /app/linksrus-monolith /app/linksrus-monolith
 
 ENTRYPOINT ["/app/linksrus-monolith"]
