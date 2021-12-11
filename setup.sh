@@ -68,3 +68,7 @@ dep init
 
 # to install dep tool
 sudo apt install go-dep
+
+
+# to run docker locally (after creating image in service/ folder
+docker run -it --rm -p 8080:8080 $(minikube ip):5000/linksrus-monolith:latest

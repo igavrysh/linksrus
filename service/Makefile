@@ -10,12 +10,15 @@ ifeq ($(origin PRIVATE_REGISTRY),undefined)
 PRIVATE_REGISTRY := $(shell minikube ip 2>/dev/null):5000
 endif
 
-test-private-reg-env-var:
-	@echo "test-private-reg-env-var ${PRIVATE_REGISTRY}"
-
 ifneq ($(PRIVATE_REGISTRY),)
 	PREFIX:=${PRIVATE_REGISTRY}/
 endif
+
+test-private-reg-env-var:
+	@echo "test-private-reg-env-var ${PRIVATE_REGISTRY}"
+
+test-prefix-env-var:
+	@echo "test-prefix-env-var ${PREFIX}"
 
 dockerize-and-push: dockerize push
 
