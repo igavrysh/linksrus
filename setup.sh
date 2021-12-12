@@ -69,6 +69,36 @@ dep init
 # to install dep tool
 sudo apt install go-dep
 
-
 # to run docker locally (after creating image in service/ folder
 docker run -it --rm -p 8080:8080 $(minikube ip):5000/linksrus-monolith:latest
+
+# to create the required namespaces for the deployment
+kubectl apply -f 01-namespaces.yaml
+
+# to get created namespaces
+kubectl get namespaces
+
+
+# deploying CockroachDB and Elasticsearch using Helm
+helm repo add cockroachdb https://charts.cockroachdb.com/
+helm repo update
+helm install cdb --namespace=linksrus-data \
+  -f chart-settings/cdb-settings.yaml \
+  --set ImageTag=v19.1.5 \
+  cockroachdb/cockroachdb
+
+
+helm repo add elastic https://helm.elastic.co
+helm install es elastic/elasticsearch \
+  -n linksrus-data \
+  -f ./chart-settings/es-settings.yaml \
+  --set ImageTag=v7.4.0
+
+# to check helm namespaces
+helm list --all-namespaces
+
+# to uninstall helm deployment
+helm uninstall es --namespace linksrus-data
+
+# to check pods
+kubectl -n linksrus-data get pods
