@@ -46,3 +46,7 @@ purge:
 	@helm delete --purge cdb 2>&1 | sed -e 's/^/ | /g' || true
 	@echo "[kubectl] removing remaining resources"
 	@kubectl delete -f . 2>&1 | sed -e 's/^/ | /g' || true
+
+dockerize-and-push:
+	@make -C ../cdb-schema dockerize-and-push
+	@make -C .. dockerize-and-push
