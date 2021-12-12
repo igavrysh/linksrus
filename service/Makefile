@@ -20,6 +20,10 @@ test-private-reg-env-var:
 test-prefix-env-var:
 	@echo "test-prefix-env-var ${PREFIX}"
 
+test-image-env-var:
+	@echo "test-image-env-var ${IMAGE}"
+
+
 dockerize-and-push: dockerize push
 
 dockerize:

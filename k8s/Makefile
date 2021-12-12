@@ -22,7 +22,7 @@ help:
 
 bootstrap-minikube:
 	@echo "[minikube] bootstrapping (driver: ${MINIKUBE_DRIVER}, network-plugin: cni) cluster with kubernetes ${MINIKUBE_K8S_VERSION} and reserving ${MINIKUBE_RAM} of RAM and ${MINIKUBE_CPUS} CPU(s)"
-	@minikube start  --driver=${MINIKUBE_DRIVER} --install-addons=true --addons=ingress registry  --network-plugin=cni --cni=calico --kubernetes-version=${MINIKUBE_K8S_VERSION} --memory=${MINIKUBE_RAM} --cpus=${MINIKUBE_CPUS} 2>&1 | sed -e 's/^/ | /g'
+	@minikube start  --driver=${MINIKUBE_DRIVER} --install-addons=true --addons=registry ingress --network-plugin=cni --cni=calico --kubernetes-version=${MINIKUBE_K8S_VERSION} --memory=${MINIKUBE_RAM} --cpus=${MINIKUBE_CPUS} 2>&1 | sed -e 's/^/ | /g'
 	@echo
 	@echo "IMPORTANT NOTICE:"
 	@echo "Please make sure to add '"`minikube ip`":5000' as a trusted"
