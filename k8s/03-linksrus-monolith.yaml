@@ -73,7 +73,7 @@ spec:
           image: localhost:5000/linksrus-monolith:latest
           args:
             - "-crawler-update-interval=5m"
-            - "-crawler-num-workers=64"theluxurycompanion.com.
+            - "-crawler-num-workers=64"
             - "-pagerank-update-interval=15m"
             - "-pagerank-num-workers=8"
             - "-link-graph-uri=postgresql://cdb-cockroachdb-public.linksrus-data:26257/linkgraph?sslmode=disable"
