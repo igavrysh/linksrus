@@ -2,7 +2,7 @@
 
 SHELL=/bin/bash -o pipefail
 ES_VERSION ?= 7.4.0
-CDB_VERSION ?= v19.1.5
+CDB_VERSION ?= v21.2.2
 MINIKUBE_RAM ?= 5g
 MINIKUBE_CPUS ?= 3
 MINIKUBE_K8S_VERSION ?= stable
@@ -17,8 +17,6 @@ help:
 	@echo "- purge              : delete links 'R' us deployment including backing databases"
 	@echo "- dockerize-and-push : dockerize and push all required images"
 	@echo ""
-
-# 	@minikube start --cni=flannel --install-addons=true --addons=ingress registry --vm-driver=${MINIKUBE_DRIVER} --network-plugin=cni --kubernetes-version=${MINIKUBE_K8S_VERSION} --memory=${MINIKUBE_RAM} --cpus=${MINIKUBE_CPUS} 2>&1 | sed -e 's/^/ | /g'
 
 bootstrap-minikube:
 	@echo "[minikube] bootstrapping (driver: ${MINIKUBE_DRIVER}, network-plugin: cni) cluster with kubernetes ${MINIKUBE_K8S_VERSION} and reserving ${MINIKUBE_RAM} of RAM and ${MINIKUBE_CPUS} CPU(s)"
@@ -40,13 +38,52 @@ bootstrap-minikube:
 	@echo 'On OSX and Windows you can right-click the docker icon, go to'
 	@echo '"preferences" and then click on the "Daemon" tab'
 
+k8s-data-namespace:
+	@if [[ -z `kubectl get ns | grep data` ]]; then \
+		echo "[kubectl] applying namespace manifests";\
+		kubectl apply -f 01-namespaces.yaml 2>&1 | sed -e 's/^/ | /g';\
+	else \
+  		echo "[kubectl] data namespace already exists";\
+	fi
+
 purge:
 	@echo "[kubectl] removing helm deployments for CDB/ES"
-	@helm delete --purge es 2>&1 | sed -e 's/^/ | /g' || true
-	@helm delete --purge cdb 2>&1 | sed -e 's/^/ | /g' || true
+	@helm uninstall es --namespace linksrus-data 2>&1 | sed -e 's/^/ | /g' || true
+	@helm uninstall cdb --namespace linksrus-data 2>&1 | sed -e 's/^/ | /g' || true
 	@echo "[kubectl] removing remaining resources"
 	@kubectl delete -f . 2>&1 | sed -e 's/^/ | /g' || true
+
+deploy: k8s-data-namespace helm-es-service helm-cdb-service
+	@echo "[kubectl] deploying linksrus"
+	@kubectl apply -f . 2>&1 | sed -e 's/^/ | /g'
+
+helm-es-service: k8s-data-namespace
+	@if [[ `kubectl -n linksrus-data get pods -l release=es 2>/dev/null | wc -l` -eq '0' ]]; then \
+		echo "[helm] installing elasticsearch (${ES_VERSION})";\
+		echo "[helm] adding chart repos";\
+		helm repo add elastic https://helm.elastic.co 2>&1 | sed -e 's/^/ | /g';\
+		helm repo update; \
+		helm install es elastic/elasticsearch\
+          -n linksrus-data\
+          -f ./chart-settings/es-settings.yaml \
+          --set ImageTag=${ES_VERSION} 2>&1 | sed -e 's/^/ | /g';\
+	fi
+
+helm-cdb-service: k8s-data-namespace
+	@if [[ `kubectl get pods -n linksrus-data -l app.kubernetes.io/component=cockroachdb 2>/dev/null | wc -l` -eq '0' ]]; then \
+		echo "[helm] installing cockroackdb (${CDB_VERSION})";\
+		echo "[helm] adding chart repos";\
+		helm repo add cockroachdb https://charts.cockroachdb.com/;\
+		helm repo update;\
+		helm install cdb cockroachdb/cockroachdb \
+		  -n linksrus-data\
+		  -f chart-settings/cdb-settings.yaml \
+		  --set ImageTag=${CDB_VERSION} 2>&1 | sed -e 's/^/ | /g';\
+	fi
 
 dockerize-and-push:
 	@make -C ../cdb-schema dockerize-and-push
 	@make -C .. dockerize-and-push
+
+linksrus-data-get-pods:
+	@kubectl -n linksrus-data get pods
