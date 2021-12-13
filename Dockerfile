@@ -24,4 +24,8 @@ FROM alpine:3.10
 RUN apk update && apk add ca-certificates && rm -rf /var/cache/apk/*
 COPY --from=builder /go/bin/linksrus-monolith /go/bin/linksrus-monolith
 
+EXPOSE 8080
+
 ENTRYPOINT ["/go/bin/linksrus-monolith"]
+
+
