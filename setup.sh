@@ -102,3 +102,12 @@ helm uninstall es --namespace linksrus-data
 
 # to check pods
 kubectl -n linksrus-data get pods
+
+# to get a list of all resources just deployed
+kubectl -n linksrus get pods,statefulsets,services,ingresses
+
+# get logs
+kubectl -n linksrus logs linksrus-monolith-instance-0 -f
+kubectl -n linksrus logs linksrus-monolith-instance -f
+
+sudo systemctl restart docker

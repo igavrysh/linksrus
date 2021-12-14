@@ -1,10 +1,13 @@
+
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: linksrus-ingress
   namespace: linksrus
+
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+
 spec:
   rules:
     - http:
@@ -16,6 +19,7 @@ spec:
                 name: linksrus-frontend
                 port:
                   number: 80
+
 ---
 # A service with a cluster IP that serves as a load-balancer for the frontend
 # pods. It is exposed outside the cluster via the above ingress resource.
