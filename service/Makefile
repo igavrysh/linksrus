@@ -38,3 +38,4 @@ push:
 	@docker push ${PREFIX}${IMAGE}:latest 2>&1 | sed -e "s/^/ | /g"
 	@echo "[docker push] pushing ${PREFIX}${IMAGE}:${SHA}"
 	@docker push ${PREFIX}${IMAGE}:${SHA} 2>&1 | sed -e "s/^/ | /g"
+

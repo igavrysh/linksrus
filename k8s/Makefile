@@ -21,6 +21,8 @@ help:
 bootstrap-minikube:
 	@echo "[minikube] bootstrapping (driver: ${MINIKUBE_DRIVER}, network-plugin: cni) cluster with kubernetes ${MINIKUBE_K8S_VERSION} and reserving ${MINIKUBE_RAM} of RAM and ${MINIKUBE_CPUS} CPU(s)"
 	@minikube start  --driver=${MINIKUBE_DRIVER} --install-addons=true --addons=registry ingress --network-plugin=cni --cni=calico --kubernetes-version=${MINIKUBE_K8S_VERSION} --memory=${MINIKUBE_RAM} --cpus=${MINIKUBE_CPUS} 2>&1 | sed -e 's/^/ | /g'
+	@minikube addons enable ingress
+	@minikube addons enable registry
 	@echo
 	@echo "IMPORTANT NOTICE:"
 	@echo "Please make sure to add '"`minikube ip`":5000' as a trusted"
@@ -85,5 +87,17 @@ dockerize-and-push:
 	@make -C ../cdb-schema dockerize-and-push
 	@make -C .. dockerize-and-push
 
-linksrus-data-get-pods:
+pods:
 	@kubectl -n linksrus-data get pods
+
+resources:
+	@kubectl -n linksrus get pods,statefulsets,services,ingresses
+
+data-resources:
+	@kubectl -n linksrus-data get pods,statefulsets,services,ingresses
+
+logs-monolith-instance:
+	@kubectl -n linksrus logs linksrus-monolith-instance-0 -f
+
+logs-frontend-instances:
+	@kubectl -n linksrus logs service/linksrus-frontend -f

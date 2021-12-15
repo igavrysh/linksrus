@@ -14,3 +14,4 @@ spec:
         - "linkgraph"
         - "cdb-cockroachdb-public.linksrus-data"
       restartPolicy: Never
+

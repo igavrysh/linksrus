@@ -5,3 +5,8 @@ Resources:
     cpu: "100m"
     memory: "512Mi"
 Storage: "100Mi"
+tls:
+  enabled: no
+  certs:
+    provided: no
+
