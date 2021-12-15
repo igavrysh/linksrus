@@ -111,3 +111,4 @@ kubectl -n linksrus logs linksrus-monolith-instance-0 -f
 kubectl -n linksrus logs linksrus-monolith-instance -f
 
 sudo systemctl restart docker
+

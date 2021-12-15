@@ -15,3 +15,4 @@ volumeClaimTemplate:
   resources:
     requests:
       storage: 300M
+xpack.security.enabled: false

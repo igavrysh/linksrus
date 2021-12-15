@@ -1,8 +1,8 @@
 .PHONY: help bootstrap-minikube purge deploy k8s-data-namespace helm-es-service helm-cdb-service dockerize-and-push
 
 SHELL=/bin/bash -o pipefail
-ES_VERSION ?= 7.4.0
-CDB_VERSION ?= v21.2.2
+ES_VERSION ?= 7.16.1
+CDB_VERSION ?= v21.2.3
 MINIKUBE_RAM ?= 5g
 MINIKUBE_CPUS ?= 3
 MINIKUBE_K8S_VERSION ?= stable
@@ -99,5 +99,18 @@ data-resources:
 logs-monolith-instance:
 	@kubectl -n linksrus logs linksrus-monolith-instance-0 -f
 
-logs-frontend-instances:
+logs-monolith-instances:
+	@kubectl -n linksrus logs -lapp=linksrus-monolith-instance -f
+
+logs-front:
 	@kubectl -n linksrus logs service/linksrus-frontend -f
+
+logs-es-master:
+	@kubectl -n linksrus-data logs service/elasticsearch-master -f
+
+logs-es-master-headless:
+	@kubectl -n linksrus-data logs service/elasticsearch-master-headless -f
+
+logs-elasticsearch-master:
+	@kubectl -n linksrus-data logs statefulset.apps/elasticsearch-master -f
+
